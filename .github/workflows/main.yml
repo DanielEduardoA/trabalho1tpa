@@ -23,7 +23,7 @@ jobs:
       - name: Maven Verify
         run: mvn test
       - name: Publish Test Report
-        if: ${{ always() }}
+        if: steps.check.outputs.triggered == 'true' && (failure() || success())
         uses: scacap/action-surefire-report@v1
         
      
