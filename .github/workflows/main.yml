@@ -13,6 +13,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Maven Verify
-        run: mvn -B clean verify
+        run: mvn -B test
         
      
