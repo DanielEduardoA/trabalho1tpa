@@ -20,10 +20,11 @@ jobs:
          restore-keys: |
           ${{ runner.os }}-maven-
      # Step that runs the tests
-      - name: Maven Verify
-        run: mvn test
-      - name: Publish Test Report
-        if: steps.check.outputs.triggered == 'true' && (failure() || success())
-        uses: scacap/action-surefire-report@v1
+      - name: Maven Verify 
+        run: cd tests && mvn clean test --batch-mode -Dmaven.test.failure.ignore=true
+      - uses: scacap/action-surefire-report@master
+        if: endsWith(github.ref, 'master') == false
+        with:
+          check_name: Example Surefire Test Report
         
      
