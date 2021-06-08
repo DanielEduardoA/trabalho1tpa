@@ -21,7 +21,7 @@ jobs:
           ${{ runner.os }}-maven-
      # Step that runs the tests
       - name: Maven Verify 
-        run: cd tests && mvn clean test --batch-mode -Dmaven.test.failure.ignore=true
+        run: mvn clean test --batch-mode -Dmaven.test.failure.ignore=true
       - uses: scacap/action-surefire-report@master
         if: endsWith(github.ref, 'master') == false
         with:
