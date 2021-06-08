@@ -21,10 +21,11 @@ jobs:
           ${{ runner.os }}-maven-
      # Step that runs the tests
       - name: Maven Verify 
-        run: mvn clean test --batch-mode -Dmaven.test.failure.ignore=true
-      - uses: scacap/action-surefire-report@master
-        if: endsWith(github.ref, 'master') == false
+        run: mvn clean test 
+      - name: Upload JaCoCo coverage report
+        uses: actions/upload-artifact@v2
         with:
-          check_name: Example Surefire Test Report
-        
+          name: jacoco-report
+          path: reports/jacoco/
+     
      
