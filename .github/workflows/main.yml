@@ -22,5 +22,8 @@ jobs:
      # Step that runs the tests
       - name: Maven Verify
         run: mvn test
+      - name: Publish Test Report
+        if: ${{ always() }}
+        uses: scacap/action-surefire-report@v1
         
      
