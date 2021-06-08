@@ -12,28 +12,19 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-        # Step that does that actual cache save and restore
-      - uses: actions/cache@v1
-        with:
-         path: ~/.m2/repository
-         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-         restore-keys: |
-          ${{ runner.os }}-maven-
-     # Step that runs the tests
-      - name: Maven Verify 
-        run: mvn clean test 
-      - name: generate report
+      - name: Build with Maven
+        run: mvn test jacoco:report
+      - name: Upload to Codecov
+        env:
+          CODECOV_TOKEN: $
+        run: bash <(curl -s https://codecov.io/bash)
+      - name: Pitest
+        run: mvn test org.pitest:pitest-maven:mutationCoverage
+      - name: Upload Pitest to Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: report 
-          path: reports/coverage
-      - name: Download Test Reports Folder
-        uses: actions/download-artifact@v2
-        with:
-          name: report
-          path: reports/coverage
-
-      - name: Upload Test Report
-        run:  bash <(curl -s https://codecov.io/bash) -f "reports/coverage/report.xml"
+          name: pitest-mutation-testing
+          path: target/pit-reports/**/*  
+      
      
      
