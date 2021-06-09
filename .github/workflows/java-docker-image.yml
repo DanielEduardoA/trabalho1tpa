@@ -20,5 +20,4 @@ jobs:
       - name: Send image to Docker Hub
         working-directory: ./trabalho1tpa/
         run: |
-          docker build -t danieleduardoalm/marvel:latest .
-          docker push danieleduardoalm/marvel:latest
+          docker pull danieleduardoalm/marvel:7.0.0
