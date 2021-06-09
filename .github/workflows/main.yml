@@ -11,11 +11,24 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: 11
-    - run: mvn -B verify --no-transfer-progress
-    - uses: codecov/codecov-action@v1
+        
+    - name: Build with Maven
+      run: mvn -B verify
+
+    - name: Generate JaCoCo Badge
+      id: jacoco
+      uses: cicirello/jacoco-badge-generator@v2
+
+    - name: Log coverage percentage
+      run: |
+        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
+
+    - name: Upload JaCoCo coverage report
+      uses: actions/upload-artifact@v2
       with:
-        file: ./**/target/site/jacoco/jacoco.xml
-        name: codecov
+        name: jacoco-report
+        path: target/site/jacoco/
       
      
      
