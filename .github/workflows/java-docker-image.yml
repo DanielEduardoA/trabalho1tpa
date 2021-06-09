@@ -20,4 +20,4 @@ jobs:
       - name: Send image to Docker Hub
         working-directory: ./trabalho1tpa/
         run: |
-          docker search danieleduardoalm/marvel
+          docker search marvel
