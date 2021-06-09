@@ -1,0 +1,23 @@
+name: Generate Java Docker Image
+
+on: [push]
+
+jobs:
+  push_to_registry:
+    name: Setup Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in into Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Send image to Docker Hub
+        run: |
+          docker build -t danieleduardoalm/marvel:latest .
+          docker push danieleduardoalm/marvel:latest
