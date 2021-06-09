@@ -11,7 +11,7 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: 11
-    - run: mvn -B verify -P coverage --no-transfer-progress
+    - run: mvn -B verify --no-transfer-progress
     - uses: codecov/codecov-action@v1
       with:
         file: ./**/target/site/jacoco/jacoco.xml
