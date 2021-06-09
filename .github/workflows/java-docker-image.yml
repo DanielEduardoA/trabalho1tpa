@@ -18,6 +18,7 @@ jobs:
           password: ${{secrets.DOCKER_PASSWORD}}
 
       - name: Send image to Docker Hub
+        working-directory: ./trabalho1tpa/
         run: |
           docker build -t danieleduardoalm/marvel:latest .
           docker push danieleduardoalm/marvel:latest
