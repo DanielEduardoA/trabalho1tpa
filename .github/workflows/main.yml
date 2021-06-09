@@ -1,7 +1,6 @@
-name: Java CI
+name: Unit Test - Java
 
-on: 
-   push:
+on: [push, pull_request]
 jobs:
  coverage:
    runs-on: ubuntu-latest
@@ -10,25 +9,9 @@ jobs:
     - uses: actions/setup-java@v2
       with:
         distribution: 'adopt'
-        java-version: 11
-        
-    - name: Build with Maven
-      run: mvn -B verify
-
-    - name: Generate JaCoCo Badge
-      id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2
-
-    - name: Log coverage percentage
-      run: |
-        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
-
-    - name: Upload JaCoCo coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: jacoco-report
-        path: target/site/jacoco/
+        java-version: 11   
+    - name: run Unit Test with Maven
+      run: mvn --batch-mode --update-snapshots test
       
      
      
