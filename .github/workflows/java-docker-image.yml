@@ -21,4 +21,4 @@ jobs:
         working-directory: ./trabalho1tpa/
         run: |
           docker build -t danieleduardoalm/marvel:latest ../..
-          docker push danieleduardoalm/marvel:latest
+          #docker push danieleduardoalm/marvel:latest
